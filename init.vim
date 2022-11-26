@@ -15,8 +15,8 @@ filetype off
 
 
 call plug#begin('~/.local/share/nvim/site/plugged')
-Plug 'sheerun/vim-polyglot'
-Plug 'morhetz/gruvbox'
+plug 'sheerun/vim-polyglot'
+plug 'morhetz/gruvbox'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()}}
