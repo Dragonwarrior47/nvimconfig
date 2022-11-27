@@ -1,8 +1,44 @@
--- This is an example on how rust-analyzer can be configured using rust-tools
---
 -- Prerequisites:
 -- - neovim >= 0.8
 -- - rust-analyzer: https://rust-analyzer.github.io/manual.html#rust-analyzer-language-server-binary
+
+
+vim.opt.guicursor = block
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.scrolloff = 8
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.wrap = false
+vim.opt.hidden = true
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = "~/.vim/undodir"
+vim.opt.undofile = true
+
+function map(mode, lhs, rhs, opts)
+    local options = { noremap = true }
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+vim.g.mapleader = ' '
+local opts = { noremap = true, silent = true}
+map("i", "jj", "<Esc>", { silent = true })
+map("n", "<leader>ff", "<cmd>Telescope find_files <CR>", opts)
+map("n", "<leader>fg", "<cmd>Telescope live_grep <CR>", opts)
+map("n", "<leader>fh", "<cmd>Telescope help_tags <CR>", opts)
+map("n", "<leader>fb", "<cmd>Telescope buffers <CR>", opts)
+map("n", "<leader>ex", "<cmd>Lex 20 <CR>", opts)
+map("n", "<C-h>", "<C-w>h", opts)
+map("n", "<C-j>", "<C-w>j", opts)
+map("n", "<C-k>", "<C-w>k", opts)
+map("n", "<C-l>", "<C-w>l", opts)
 
 local ensure_packer = function()
   local fn = vim.fn
@@ -59,6 +95,7 @@ require("packer").startup(function(use)
 
   -- Some color scheme other then default
   use("arcticicestudio/nord-vim")
+  use("gruvbox-community/gruvbox")
 end)
 
 -- the first run will install packer and our plugins
@@ -135,7 +172,7 @@ local opts = {
       ["rust-analyzer"] = {
         -- enable clippy on save
         checkOnSave = {
-          command = "clippy",
+          command = "clippy"
         },
       },
     },
@@ -143,46 +180,5 @@ local opts = {
 }
 
 require("rust-tools").setup(opts)
-
--- " Setup Completion
--- " See https://github.com/hrsh7th/nvim-cmp#basic-configuration
-local cmp = require("cmp")
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  mapping = {
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
-    -- Add tab support
-    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-    ["<Tab>"] = cmp.mapping.select_next_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
-    }),
-  },
-
-  -- Installed sources
-  sources = {
-    { name = "nvim_lsp" },
-    { name = "vsnip" },
-    { name = "path" },
-    { name = "buffer" },
-  },
-})
-
--- have a fixed column for the diagnostics to appear in
--- this removes the jitter when warnings/errors flow in
-vim.wo.signcolumn = "yes"
-
--- " Set updatetime for CursorHold
--- " 300ms of no cursor movement to trigger CursorHold
--- set updatetime=300
-vim.opt.updatetime = 100
+local cmd = vim.cmd
+cmd 'colorscheme gruvbox'
