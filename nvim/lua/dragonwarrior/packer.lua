@@ -50,10 +50,18 @@ require("packer").startup(function(use)
   use("nvim-lua/popup.nvim")
   use("nvim-lua/plenary.nvim")
   use("nvim-telescope/telescope.nvim")
+  use({
+    "scalameta/nvim-metals",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "mfussenegger/nvim-dap",
+    },
+  })
 
   -- Some color scheme other then default
   use("arcticicestudio/nord-vim")
   use("gruvbox-community/gruvbox")
+  use("folke/tokyonight.nvim")
 end)
 
 -- the first run will install packer and our plugins

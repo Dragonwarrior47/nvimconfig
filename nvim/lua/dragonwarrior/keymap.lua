@@ -9,6 +9,8 @@ end
 vim.g.mapleader = ' '
 local opts = { noremap = true, silent = true}
 map("i", "jj", "<Esc>", { silent = true })
+map("n", "<C-d>", "<C-d>zz", opts)
+map("n", "<C-u>", "<C-u>zz", opts)
 map("n", "<leader>ff", "<cmd>Telescope find_files <CR>", opts)
 map("n", "<leader>fg", "<cmd>Telescope live_grep <CR>", opts)
 map("n", "<leader>fh", "<cmd>Telescope help_tags <CR>", opts)
