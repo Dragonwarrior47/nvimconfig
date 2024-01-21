@@ -1,4 +1,4 @@
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 vim.wo.number = true
 vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
@@ -11,3 +11,4 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
+vim.o.relativenumber = true
